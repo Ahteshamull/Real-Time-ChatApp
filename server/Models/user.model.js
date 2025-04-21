@@ -1,5 +1,5 @@
 import express from "express";
-import { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const userSchema = new Schema(
   {

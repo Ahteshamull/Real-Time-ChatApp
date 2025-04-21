@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import authRoute from "./routes/auth.routes.js";
+import messagesRoute from "./routes/messages.route.js";
 import dbConnected from "./Db/dbConnected.js";
 dotenv.config();
 
@@ -13,6 +14,7 @@ app.use(cookieParser());
 
 // Routes
 app.use("/api/auth", authRoute);
+app.use("/api/messages", messagesRoute);
 app.use((req, res) => {
   return res.status(404).json({ message: "Route not found" });
 });

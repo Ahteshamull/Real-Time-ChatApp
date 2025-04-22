@@ -1,5 +1,6 @@
 // routes/authRoute.js
 import express from "express";
+import { protectRoute } from './../Middlewares/auth.js';
 import {
   login,
   logout,
@@ -7,14 +8,14 @@ import {
   updateProfile,
   checkAuth,
 } from "../Controllers/auth.js";
-import { verifyToken } from "../Middlewares/auth.js";
+
 
 const router = express.Router();
 
 router.post("/registration", registration);
 router.post("/login", login);
 router.post("/logout", logout);
-router.put("/update-profile",verifyToken, updateProfile);
-router.get("/user-check", verifyToken, checkAuth);
+router.put("/update-profile", protectRoute, updateProfile);
+router.get("/check", protectRoute, checkAuth);
 
 export default router;

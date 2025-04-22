@@ -1,6 +1,6 @@
 // routes/authRoute.js
 import express from "express";
-import { verifyToken } from "../Middlewares/auth.js";
+import { protectRoute } from "../Middlewares/auth.js";
 import {
   getUserForSidebar,
   getMessages,
@@ -8,8 +8,8 @@ import {
 } from "../Controllers/message.js";
 
 const router = express.Router();
-router.get("/user", verifyToken,getUserForSidebar)
-router.get("/:id", verifyToken,getMessages)
-router.post("/send-message/:id", verifyToken,sendMessage)
+router.get("/user", protectRoute, getUserForSidebar);
+router.get("/:id", protectRoute, getMessages);
+router.post("/send-message/:id", protectRoute, sendMessage);
 
 export default router;

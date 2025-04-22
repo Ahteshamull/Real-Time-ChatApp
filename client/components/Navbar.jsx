@@ -1,7 +1,10 @@
-import React from 'react'
+import React from "react";
 
 export default function Navbar() {
   return (
-    <div>Navbar</div>
-  )
+    <div className="text-red-500 bg-blue-500">
+     Navbar
+    </div>
+  );
 }
+ 

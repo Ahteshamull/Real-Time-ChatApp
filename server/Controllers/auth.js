@@ -59,7 +59,16 @@ export const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid email or password" });
     }
     generateToken(user._id, res);
-    res.status(200).json({ success: true, message: "Login successful" });
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "Login successful",
+        _id: user._id,
+        fullName: user.fullName,
+        email: user.email,
+        profilePic: user.profilePic,
+      });
   } catch (error) {
     return res
       .status(500)
@@ -83,10 +92,6 @@ export const updateProfile = async (req, res) => {
   try {
   const {profilePic} = req.body;
   const userId = req.user._id;
-  const user = await User.findById(userId);
-  if (!user) {
-    return res.status(404).json({ message: "User not found" });
-    }
     if(!profilePic){
       return res.status(400).json({ message: "Profile picture is required" });
     }

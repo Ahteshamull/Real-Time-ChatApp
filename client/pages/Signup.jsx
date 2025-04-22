@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { Link } from 'react-router-dom';
 import AuthImagePattern from './../components/AuthImagePattern ';
+import toast from "react-hot-toast";
 
 
 export default function Signup() {
@@ -34,6 +35,10 @@ export default function Signup() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    const success = validateForm();
+
+    if (success === true) signup(formData);
   };
   return (
     <div>

@@ -5,9 +5,10 @@ import authRoute from "./routes/auth.routes.js";
 import messagesRoute from "./routes/messages.route.js";
 import dbConnected from "./Db/dbConnected.js";
 import cors from "cors";
+import { app,server } from "./lib/socket.js";
 dotenv.config();
 
-const app = express();
+
 dbConnected();
 // Middleware
 app.use(express.json());
@@ -26,4 +27,4 @@ app.use((req, res) => {
 
 // Start server
 const port = process.env.SERVER_PORT || 3000;
-app.listen(port, () => console.log(`Server listening on port ${port}`));
+server.listen(port, () => console.log(`Server listening on port ${port}`));

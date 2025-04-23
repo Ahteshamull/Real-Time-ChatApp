@@ -1,13 +1,12 @@
-
 import { useEffect, useRef } from "react";
 
 import ChatHeader from "./ChatHeader";
 import MessageInput from "./MessageInput";
 
-import { useChatStore } from './../store/useChatStore';
-import { useAuthStore } from './../store/useAuthStore';
-import { formatMessageTime } from './../lib/utils';
-import MessageSkeleton from './skeleton/MessageSkeleton';
+import { useChatStore } from "./../store/useChatStore";
+import { useAuthStore } from "./../store/useAuthStore";
+import { formatMessageTime } from "./../lib/utils";
+import MessageSkeleton from "./skeleton/MessageSkeleton";
 
 const ChatContainer = () => {
   const {
@@ -59,7 +58,7 @@ const ChatContainer = () => {
           <div
             key={message._id}
             className={`chat ${
-              message.senderId === authUser._id ? "chat-end" : "chat-start"
+              message.senderId === authUser.user._id ? "chat-end" : "chat-start"
             }`}
             ref={messageEndRef}
           >

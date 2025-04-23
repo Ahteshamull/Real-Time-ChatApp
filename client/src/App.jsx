@@ -8,12 +8,14 @@ import { Toaster } from "react-hot-toast";
 import Navbar from './components/Navbar';
 import HomePage from './pages/Home';
 import SignUpPage from './pages/Signup';
+import Setting from "./pages/Setting"
 import Login from './pages/Login';
-import Setting from './pages/Setting';
 import Profile from './pages/Profile';
 import { useAuthStore } from './store/useAuthStore';
+import { useThemeStore } from "./store/useThemeStore";
 
 export default function App() {
+  const { theme } = useThemeStore();
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
 
   useEffect(() => {
@@ -30,7 +32,7 @@ export default function App() {
     );
 
   return (
-    <div data-theme="retro">
+    <div data-theme={theme}>
       <Navbar />
 
       <Routes>

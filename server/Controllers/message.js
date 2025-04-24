@@ -44,7 +44,6 @@ export const sendMessage = async (req, res) => {
 
     let imageUrl;
     if (image) {
-      // Upload base64 image to cloudinary
       const upload = await cloudinary.uploader.upload(image);
       imageUrl = upload.secure_url;
     }

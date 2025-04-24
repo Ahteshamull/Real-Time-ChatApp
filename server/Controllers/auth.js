@@ -106,7 +106,10 @@ export const updateProfile = async (req, res) => {
 };
 export const checkAuth = async (req, res) => {
   try {
-    res.status(200).json({ success: true, message: "User is authenticated", user: req.user });
+    res
+      .status(200)
+      .json( req.user,
+      );
   } catch (error) {
     return res
       .status(500)

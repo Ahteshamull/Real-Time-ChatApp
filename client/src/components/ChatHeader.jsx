@@ -18,10 +18,6 @@ const ChatHeader = () => {
                 alt={selectedUser.fullName}
               />
             </div>
-            <span
-              className="absolute bottom-0 right-0 size-3 bg-green-500 
-                  rounded-full ring-2 ring-zinc-900"
-            />
           </div>
 
           {/* User info */}
@@ -29,7 +25,14 @@ const ChatHeader = () => {
             <h3 className="font-medium">{selectedUser.fullName}</h3>
 
             <p className="text-sm text-base-content/70">
-              {onlineUsers.includes(selectedUser._id) ? "Online" : "Offline"}
+              {onlineUsers.includes(selectedUser._id)
+                ? "Online" && (
+                    <span
+                      className="absolute bottom-[-9px]  left-[-22px] size-3 bg-green-500 
+                  rounded-full ring-2 ring-zinc-900"
+                    />
+                  )
+                : "Offline"}
             </p>
           </div>
         </div>

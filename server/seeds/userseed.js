@@ -1,6 +1,7 @@
 import { config } from "dotenv";
-import User from "./../Models/user.model.js";
-import dbConnected from "./../Db/dbConnected";
+import User from "../Models/user.model.js";
+import dbConnected from '../Db/dbConnected.js';
+
 
 config();
 

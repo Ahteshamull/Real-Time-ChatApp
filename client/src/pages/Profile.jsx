@@ -78,7 +78,7 @@ const Profile = () => {
                 Full Name
               </div>
               <p className="px-4 py-2.5 bg-base-200 rounded-lg border">
-                {authUser?.user?.fullName}
+                {authUser.fullName}
               </p>
             </div>
 

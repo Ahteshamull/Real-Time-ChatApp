@@ -45,21 +45,46 @@ export const useChatStore = create((set, get) => ({
       toast.error(error.response.data.message);
     }
   },
+  //   subscribeToMessages: () => {
+  //     const { selectedUser } = get();
+  //     if (!selectedUser) return;
 
+  //     const socket = useAuthStore.getState().socket;
+  // const isChatWithSelectedUser =
+  //   (newMessage.senderId === selectedUser._id &&
+  //     newMessage.receiverId === currentUser._id) ||
+  //   (newMessage.receiverId === selectedUser._id &&
+  //         newMessage.senderId === currentUser._id);
+
+  //     socket.on("newMessage", (newMessage) => {
+
+  //       set({
+  //         messages: [...get().messages, newMessage],
+  //       });
+  //     });
+  //   },
   subscribeToMessages: () => {
     const { selectedUser } = get();
-    if (!selectedUser) return;
-
     const socket = useAuthStore.getState().socket;
+    const currentUser = useAuthStore.getState().authUser;
+
+    if (!selectedUser || !socket || !currentUser) return;
+    socket.off("newMessage");
 
     socket.on("newMessage", (newMessage) => {
-      const isMessageSentFromSelectedUser =
-        newMessage.senderId === selectedUser._id;
-      if (!isMessageSentFromSelectedUser) return;
+      
+      const isChatWithSelectedUser =
+        (newMessage.senderId === selectedUser._id &&
+          newMessage.receiverId === currentUser._id) ||
+        (newMessage.receiverId === selectedUser._id &&
+          newMessage.senderId === currentUser._id);
 
-      set({
-        messages: [...get().messages, newMessage],
-      });
+      if (!isChatWithSelectedUser) return;
+
+  
+      set((state) => ({
+        messages: [...state.messages, newMessage],
+      }));
     });
   },
 

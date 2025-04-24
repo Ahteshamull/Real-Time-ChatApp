@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import toast from "react-hot-toast";
 import { useAuthStore } from "./useAuthStore";
-import { axiosInstance } from './../lib/axios';
+import { axiosInstance } from "./../lib/axios";
 
 export const useChatStore = create((set, get) => ({
   messages: [],
@@ -45,46 +45,18 @@ export const useChatStore = create((set, get) => ({
       toast.error(error.response.data.message);
     }
   },
-  //   subscribeToMessages: () => {
-  //     const { selectedUser } = get();
-  //     if (!selectedUser) return;
-
-  //     const socket = useAuthStore.getState().socket;
-  // const isChatWithSelectedUser =
-  //   (newMessage.senderId === selectedUser._id &&
-  //     newMessage.receiverId === currentUser._id) ||
-  //   (newMessage.receiverId === selectedUser._id &&
-  //         newMessage.senderId === currentUser._id);
-
-  //     socket.on("newMessage", (newMessage) => {
-
-  //       set({
-  //         messages: [...get().messages, newMessage],
-  //       });
-  //     });
-  //   },
   subscribeToMessages: () => {
     const { selectedUser } = get();
+    if (!selectedUser) return;
+
     const socket = useAuthStore.getState().socket;
-    const currentUser = useAuthStore.getState().authUser;
-
-    if (!selectedUser || !socket || !currentUser) return;
-    socket.off("newMessage");
-
+    const isChatWithSelectedUser =
+      useAuthStore.getState().onlineUsers.includes(selectedUser._id);
+    if (!isChatWithSelectedUser) return;
     socket.on("newMessage", (newMessage) => {
-      
-      const isChatWithSelectedUser =
-        (newMessage.senderId === selectedUser._id &&
-          newMessage.receiverId === currentUser._id) ||
-        (newMessage.receiverId === selectedUser._id &&
-          newMessage.senderId === currentUser._id);
-
-      if (!isChatWithSelectedUser) return;
-
-  
-      set((state) => ({
-        messages: [...state.messages, newMessage],
-      }));
+      set({
+        messages: [...get().messages, newMessage],
+      });
     });
   },
 

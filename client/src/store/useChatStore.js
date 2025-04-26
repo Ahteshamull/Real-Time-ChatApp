@@ -50,14 +50,17 @@ export const useChatStore = create((set, get) => ({
     if (!selectedUser) return;
 
     const socket = useAuthStore.getState().socket;
-    const isChatWithSelectedUser =
-      useAuthStore.getState().onlineUsers.includes(selectedUser._id);
-    if (!isChatWithSelectedUser) return;
+ 
     socket.on("newMessage", (newMessage) => {
-      set({
-        messages: [...get().messages, newMessage],
-      });
-    });
+  
+      if (newMessage.senderId !== selectedUser._id || newMessage.receiverId !== selectedUser._id) {
+
+        set({
+          messages: [...get().messages, newMessage],
+        });
+      }
+      
+  });
   },
 
   unsubscribeFromMessages: () => {

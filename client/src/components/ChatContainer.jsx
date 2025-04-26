@@ -33,7 +33,6 @@ const ChatContainer = () => {
     unsubscribeFromMessages,
   ]);
 
-  console.log(messages);
   useEffect(() => {
     if (messageEndRef.current && messages) {
       messageEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -59,7 +58,7 @@ const ChatContainer = () => {
           <div
             key={message._id}
             className={`chat ${
-              message.senderId == authUser._id ? "chat-end" : "chat-start"
+              message.senderId === authUser._id ? "chat-end" : "chat-start"
             }`}
             ref={messageEndRef}
           >
